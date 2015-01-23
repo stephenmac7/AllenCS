@@ -63,52 +63,41 @@ public class TopicSeven {
   
   void nutrition() {
     // complete the NutritionFacts class and upload it to Gaggle
-    System.out.println("Uncomment to test!");
-    /*
-    NutritionFacts nf = new NutritionFacts(17.0, 0.0, 140.0, 6.0, 8.0);   // for peanut butter
+    NutritionFacts nf = new NutritionFacts(17.264895235235, 0.0, 140.0, 6.0, 8.0);   // for peanut butter
     double calories = 0.0;
-    calories = nf.calories();
-    System.out.println(calories);
+    //calories = nf.calories();
+    //System.out.println(calories);
     double fat = 0.0;
-    fat = nf.fat();
+    //fat = nf.fat();
+    fat = nf.getFat();
     System.out.println(fat);
+    
     nf.label(); // this will print out the label
-    */
   }
   
   void hanna() {
-    // complete the HannaPark class and upload it to Gaggle
-    System.out.println("Uncomment to test!");
-    /*
     HannaPark hp1 = new HannaPark(true, 3);
     HannaPark hp2 = new HannaPark(false, 5);
-    System.out.println("Uncomment the hp methods to grade!");
+    /*System.out.println("Uncomment the hp methods to grade!");*/
     int charge1 = 0;
     int charge2 = 0;
     charge1 = hp1.cost();
     charge2 = hp2.cost();
     System.out.println(charge1 + " " + charge2);
-    */
   }
   
   void dcl() {
     // complete the DCLDining class and upload it to Gaggle
-    System.out.println("Uncomment to test!");
-    /*
     DCLDining family1 = new DCLDining("Bieber", 2019);
     DCLDining family2 = new DCLDining("Kardashian", 8121);
-    System.out.println("Uncomment the dcl methods to grade!");
-    String dine1 = new String(family1.nameAssign);
-    String dine2 = new String(family2.nameAssign);
+    assert !family1.nameAssign().isEmpty();
+    assert !family2.nameAssign().isEmpty();
     family1.displayRest();
     family2.displayRest();
-    */
   }
   
   void pt() {
     // complete the ParkTickets class and upload it to Gaggle
-    System.out.println("Uncomment to test!");
-    /*
     ParkTickets a = new ParkTickets(342);
     ParkTickets b = new ParkTickets(921);
     ParkTickets c = new ParkTickets(223);
@@ -118,13 +107,12 @@ public class TopicSeven {
     c.annual();
     d.afternoonAnnual();
     int h = 10;
-    String s = new String("SS");
+    boolean wk = true;
     boolean sv = false;
-    System.out.println(a.checkTicket(h, s, sv));
-    System.out.println(b.checkTicket(h, s, sv));
-    System.out.println(c.checkTicket(h, s, sv));
-    System.out.println(d.checkTicket(h, s, sv));
-    */
+    System.out.println(a.checkTicket(h, wk, sv, true));
+    System.out.println(b.checkTicket(h, wk, sv, true));
+    System.out.println(c.checkTicket(h, wk, sv, false));
+    System.out.println(d.checkTicket(h, wk, sv, false));
   }
   
 public static void main(String args[]) {
