@@ -3,9 +3,9 @@ public class CheckingAccount extends BankAccount {
   // The evil bank charges a transaction fee of 50 cents:
   private static final double TRANSACTION_FEE = 0.50;
   
-  /*CheckingAccount(double amount) {
+  CheckingAccount(double amount) {
     super(amount);
-  }*/
+  }
   
   // Override the deposit method from BankAccount
   // Don't forget to charge the transaction fee!

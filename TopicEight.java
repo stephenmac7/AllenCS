@@ -1,5 +1,4 @@
 import java.util.*;
-import java.lang.*;
 
 public class TopicEight {
   
@@ -56,46 +55,40 @@ public class TopicEight {
      *
      * Have fun!       */
     
-    System.out.println("Uncomment to grade!");
-    /*
     ComputerStudent cs1 = new ComputerStudent(52.4, "Miley Cyrus");
     System.out.println(cs1.getName());
-    cs1.setAverage(47.6);
-    System.out.println(cs1.getAverage());
     cs1.setPeriod(8);
     System.out.println(cs1.getPeriod());
     cs1.setID(4212);
     System.out.println(cs1.getID());
-    */
   }
   
   void hangman() {
-    // complete class Hangman.java as instructed
-    // and finish it below:
-    
     // First, make an instance of type Hangman     */
+    Hangman hanger = new Hangman();
 
-    
-    
     // Now, have the user enter the word to be guessed
+    hanger.enterWord();
 
-    
     // Now, run the game while the number of turns is more than 0 AND the user has not won
+    boolean win = false;
+    while (hanger.getTurns() > 0 && !win) {
+      hanger.checkWord();
+      win = hanger.checkWin();
+      if (!win) {
+        hanger.printWord();
+      }
+    }
 
-    
-    
-    
-    
     /* Finally, if the player lost, print a message making fun of them and provide the correct word
      * If the player won, print a congratulatory message      */
-
-  
-  
-  
-  
-    
-    
-    // Done!
+    if (hanger.getTurns() == 0) {
+      System.out.println("Idiot, the word was " + hanger.getEntireWord());
+    }
+    else {
+      System.out.println("Yes, the word was " + hanger.getEntireWord());
+      System.out.println("You won. Very cool. Now move on.");
+    }
   }
   
 public static void main(String args[]) {
