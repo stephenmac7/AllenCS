@@ -30,10 +30,34 @@ class FRQ2011 {
   }
   
   // 3a.
-  public int nextTankToFill(int threshold)
+  public int nextTankToFill(int threshold) {
+    int low_index = filler.getCurrentIndex();
+    int low = tanks.get(low_index);
+    for (int i = 0; i < tanks.size(); i++) {
+      if (tanks.get(i) < low) {
+        low_index = i;
+      }
+    }
+    return low_index;
+  }
   
   // 3b.
-  public void moveToLocation(int locIndex)
+  public void moveToLocation(int locIndex) {
+    int current = filler.getCurrentIndex();
+    if (locIndex >= current) {
+      // Go right
+      if (!filler.isFacingRight()) {
+        filler.changeDirection();
+      }
+      filler.moveForward(locIndex - current);
+    } else {
+      // Go left
+      if (filler.isFacingRight()) {
+        filler.changeDirection();
+      }
+      filler.moveForward(current - locIndex);
+    }
+  }
   
   // 4a.
   private void fillBlock(String str) {
