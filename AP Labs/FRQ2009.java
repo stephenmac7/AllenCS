@@ -18,7 +18,7 @@ class FRQ2009 {
 
     while(i < values.length - 1) {
       j = i + 1;
-      while (values[j] == values[i]) {
+      while (values[j] == values[i] && values[j] < values.length) {
         j++;
       }
       count = j - i;
