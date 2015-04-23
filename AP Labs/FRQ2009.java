@@ -13,8 +13,10 @@ class FRQ2009 {
   public static int getLongestRun(int[] values) {
     int longest_index = -1;
     int longest_amt = 1;
+    int i = 0;
     int count, j;
-    for (int i = 0; i < values.length - 1; i++) {
+
+    while(i < values.length - 1) {
       j = i + 1;
       while (values[j] == values[i]) {
         j++;
@@ -24,6 +26,7 @@ class FRQ2009 {
         longest_index = j;
         longest_amt = count;
       }
+      i += count;
     }
     return longest_index;
   }
