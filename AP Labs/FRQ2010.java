@@ -40,9 +40,28 @@ class FRQ2010 {
   }
   
   // 3a.
-  public boolean isLevelTrailSegment(int start, int end)
+  public boolean isLevelTrailSegment(int start, int end) {
+    int min = markers[start];
+    int max = markers[start];
+    for (int i = start + 1; i <= end; i++) {
+      if (markers[i] < min) {
+        min = markers[i];
+      }
+      else if (markers[i] > max) {
+        max = markers[i];
+      }
+    }
+    return max - min <= 10;
+  }
   
   // 3b.
-  public boolean isDifficult()
-  
+  public boolean isDifficult() {
+    int difficult_parts = 0;
+    for (int i = 0; i < markers.length - 1; i++) {
+      if (Math.abs(markers[i] - markers[i + 1]) >= 30) {
+        difficult_parts++;
+      }
+    }
+    return difficult_parts >= 3;
+  }
 }
