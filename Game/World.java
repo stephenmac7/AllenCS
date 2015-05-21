@@ -8,6 +8,7 @@ public class World {
   private Map<String, Company> players;
   
   public World() {
+    companies = new ArrayList<Company>();
   }
   
   public int calculateSales(StockItem stockItem, double price) {
@@ -18,7 +19,15 @@ public class World {
     companies.add(c);
   }
   
+  public void removeCompany(Company c) {
+    companies.remove(c);
+  }
+  
   public void addPlayer(String name, Company c) {
     players.put(name, c);
+  }
+  
+  public List<Company> getCompanies() {
+    return companies;
   }
 }

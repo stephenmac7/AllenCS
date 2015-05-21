@@ -2,14 +2,14 @@ public class Action {
   String name;
   int rate;
 
-  public Expense(String name, int rate) {
+  public Action(String name, int rate) {
     this.name = name;
     this.rate = rate;
   }
 
   // Tells us whether we need to spend money on this now
   // example (rate = 3, mapped over [1..10]) -> [False, False, True, False, False, True, False, False, True, False]
-  public onTurn(int time) {
+  public boolean onTurn(int time) {
     return time % rate == 0;
   }
 
@@ -20,6 +20,6 @@ public class Action {
   }
 
   public String toString() {
-    return "Action: " + name + " every " + rate + " turns.";
+    return name + " every " + rate + " turns.";
   }
 }

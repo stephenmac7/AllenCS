@@ -1,9 +1,10 @@
 public enum Material {
   WOOD("Wood"),
+  PLANK("Plank"),
   COAL("Coal");
   
   private String name;
-  public Material(String name) {
+  private Material(String name) {
     this.name = name;
   }
   

@@ -1,7 +1,10 @@
+import java.lang.StringBuilder;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class Company {
   private String name;
@@ -23,6 +26,24 @@ public class Company {
     prices = new HashMap<Material, Double>();
     actions = new ArrayList<Action>();
     equipment = new ArrayList<Equipment>();
+    
+    // Give starter stuff
+    addStockItem(new StockItem(Material.WOOD, 50));
+    actions.add(constructAction());
+    equipment.add(Equipment.SAW);
+  }
+  
+  private ProcessAction constructAction() {
+    List<Equipment> req = new ArrayList<Equipment>();
+    req.add(Equipment.SAW);
+    
+    List<StockItem> in = new ArrayList<StockItem>();
+    in.add(new StockItem(Material.WOOD, 1));
+    
+    List<StockItem> out = new ArrayList<StockItem>();
+    out.add(new StockItem(Material.PLANK, 5));
+
+    return new ProcessAction(new Process("Planking", 10, 1, req, in, out));
   }
 
   // Goes through one time cycle
@@ -30,27 +51,31 @@ public class Company {
   public boolean cycle(int time, World world) {
     // Go through our expenses, try to make their effects happen, and pay for them
     int numberOfEmployees = employees;
-    for (Action a : expenses) {
+    for (Action a : actions) {
       // If we're going to do this on this turn, and the expense can (and has been) processed, then pay for it.
       if (a.onTurn(time)) {
         if (a.run(this)) {
           System.out.println("Success: " + a.toString());
         }
         else {
-          System.out.println("Falure: " + a.toString());
+          System.out.println("Failure: " + a.toString());
         }
       }
     }
     employees = numberOfEmployees;
 
     // Go through and sell our products
-    for (Entry<Material, Double> e : prices) {
+    for (Entry<Material, Double> e : prices.entrySet()) {
       sellMaterial(world, e.getKey(), e.getValue());
     }
     
     payEmployees();
 
     return cash > 0;
+  }
+  
+  public double getCash() {
+    return cash;
   }
   
   public void spend(double cash) {
@@ -82,6 +107,7 @@ public class Company {
       StockItem inStock = stock.get(stockItem.getMaterial());
       inStock.changeAmount(-stockItem.getAmount());
     }
+    return true;
   }
 
   // Adds stockItem to stock
@@ -118,7 +144,7 @@ public class Company {
   // Sells a material to a company, assuming it's on sale.
   public boolean fillOrder(StockItem order, Company to) {
     // Make a list so we can actually use useStock
-    List<StockItem> toBuy = new ArrayList<StockItem();
+    List<StockItem> toBuy = new ArrayList<StockItem>();
     toBuy.add(order);
 
     Double price = prices.get(order.getMaterial()); // if null, this isn't on sale anymore
@@ -130,6 +156,8 @@ public class Company {
     to.spend(total);
     cash += total;
     to.addStockItem(order);
+    
+    return true;
   }
 
   // Pays all our employees once
@@ -138,12 +166,50 @@ public class Company {
   }
 
   // Use employees
-  private boolean useEmployees(int employees) {
+  public boolean useEmployees(int employees) {
     if (employees > this.employees) {
       return false;
     }
     else {
       this.employees -= employees;
+      return true;
+    }
+  }
+  
+  // We always need one of these
+  public String toString() {
+    StringBuilder s = new StringBuilder("Company: ");
+    s.append(name);
+    s.append("\n_______________________\n");
+    s.append("Cash: ");
+    s.append(cash);
+    s.append("\tEmployees: ");
+    s.append(employees);
+    return s.toString();
+  }
+
+  public void showStock() {
+    System.out.println("Stock:\nMaterial\t\tAmount\t\tPrice\n-------------------------------------------------------");
+    for (Entry<Material, StockItem> e : stock.entrySet()) {
+      System.out.print(e.getKey());
+      System.out.print("\t\t");
+      System.out.print(e.getValue().getAmount());
+      System.out.print("\t\t");
+      System.out.println(prices.get(e.getKey()));
+    }
+  }
+  
+  public void showActions() {
+    System.out.println("Actions:");
+    for (Action a : actions) {
+      System.out.println("- " + a);
+    }
+  }
+  
+  public void showEquipment() {
+    System.out.println("Equipment:");
+    for (Equipment e : equipment) {
+      System.out.println("- " + e);
     }
   }
 }
