@@ -29,4 +29,13 @@ public class World {
   public List<Company> getCompanies() {
     return companies;
   }
+  
+  public Company getCompanyByName(String name) {
+    for (Company c : companies) {
+      if (c.getName().equals(name)) {
+        return c;
+      }
+    }
+    return null;
+  }
 }

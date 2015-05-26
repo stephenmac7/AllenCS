@@ -9,22 +9,30 @@ public class ScanWrapper {
   }
   
   // Prompts
-  private int promptInt(String prompt) {
+  public int promptInt(String prompt) {
     System.out.print(prompt + ": ");
     return sc.nextInt();
   }
   
-  private double promptDouble(String prompt) {
+  public double promptDouble(String prompt) {
     System.out.print(prompt + ": ");
     return sc.nextDouble();
   }
   
-  private String promptString(String prompt) {
+  public String promptString(String prompt) {
     System.out.print(prompt + ": ");
     return sc.next();
   }
   
-  private Material promptMaterial(String prompt) {
+  public Material promptMaterial(String prompt) {
     return Material.fromString(promptString(prompt));
+  }
+  
+  public Equipment promptEquipment(String prompt) {
+    return Equipment.fromString(promptString(prompt));
+  }
+  
+  public Process promptProcess(String prompt) {
+    return Process.fromString(promptString(prompt));
   }
 }

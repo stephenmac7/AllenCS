@@ -13,7 +13,7 @@ public enum Material {
   }
   
   public static Material fromString(String name) {
-    if (s != null) {
+    if (name != null) {
       for (Material b : Material.values()) {
         if (name.equalsIgnoreCase(b.name)) {
           return b;

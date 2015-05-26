@@ -11,6 +11,18 @@ public class ProcessAction extends Action {
   public void errorMsg(String msg) {
     System.out.println("[" + p + "] ERROR: " + msg);
   }
+  
+  public Process getProcess() {
+    return p;
+  }
+  
+  public int getTimes() {
+    return times;
+  }
+  
+  public void setTimes(int times) {
+    this.times = times;
+  }
 
   public boolean run(Company c) {
     // Check if we have the equipment and materials

@@ -29,21 +29,8 @@ public class Company {
     
     // Give starter stuff
     addStockItem(new StockItem(Material.WOOD, 50));
-    actions.add(constructAction());
+    actions.add(new ProcessAction(Process.PLANKING, 1));
     equipment.add(Equipment.SAW);
-  }
-  
-  private ProcessAction constructAction() {
-    List<Equipment> req = new ArrayList<Equipment>();
-    req.add(Equipment.SAW);
-    
-    List<StockItem> in = new ArrayList<StockItem>();
-    in.add(new StockItem(Material.WOOD, 1));
-    
-    List<StockItem> out = new ArrayList<StockItem>();
-    out.add(new StockItem(Material.PLANK, 5));
-
-    return new ProcessAction(new Process("Planking", 10, 1, req, in, out), 1);
   }
 
   // Goes through one time cycle
@@ -74,6 +61,11 @@ public class Company {
     return cash > 0;
   }
   
+  // Name stuff
+  public String getName() {
+    return name;
+  }
+
   // Cash get/set/stuff
   public double getCash() {
     return cash;
@@ -84,15 +76,15 @@ public class Company {
   }
   
   // Price get/set/stuff
-  public double getPrice(Material m) {
+  public Double getPrice(Material m) {
     return prices.get(m);
   }
   
   public void setPrice(Material m, double price) {
-    prices.set(m, price);
+    prices.put(m, price);
   }
   
-  public oid removePrice(Material m) {
+  public void removePrice(Material m) {
     prices.remove(m);
   }
 
@@ -195,6 +187,76 @@ public class Company {
       this.employees -= employees;
       return true;
     }
+  }
+  
+  // equipment mod
+  public boolean buyEquipment(Equipment e) {
+    if (equipment.contains(e)) {
+      return false;
+    }
+    else {
+      spend(e.getBuyPrice());
+      equipment.add(e);
+      return true;
+    }
+  }
+  
+  public boolean sellEquipment(Equipment e) {
+    if (equipment.contains(e)) {
+      cash += e.getSellPrice();
+      equipment.remove(e);
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  
+  public List<Equipment> getEquipment() {
+    return equipment;
+  }
+  
+  // process action mod
+  public int getRuns(Process p) {
+    for (Action a : actions) {
+      if (a instanceof ProcessAction) {
+        ProcessAction b = (ProcessAction) a;
+        if (b.getProcess() == p) {
+          return b.getTimes();
+        }
+      }
+    }
+    return 0;
+  }
+  
+  public void setRuns(Process p, int num) {
+    boolean found = false;
+    Action remove = null;
+    for (Action a : actions) {
+      if (a instanceof ProcessAction) {
+        ProcessAction b = (ProcessAction) a;
+        if (b.getProcess() == p) {
+          found = true;
+          if (num == 0) {
+            remove = b;
+          }
+          else {
+            b.setTimes(num);
+          }
+          break;
+        }
+      }
+    }
+    if (remove != null) {
+      actions.remove(remove);
+    }
+    else if (!found) {
+      actions.add(new ProcessAction(p, num));
+    }
+  }
+  
+  public void addPurchase(Material m, int amount, Company tar) {
+    actions.add(new PurchaseAction(new StockItem(m, amount), tar));
   }
   
   // We always some of these

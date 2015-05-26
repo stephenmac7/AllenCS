@@ -21,4 +21,15 @@ public enum Equipment {
   public double getSellPrice() {
     return price * 0.8;
   }
+  
+  public static Equipment fromString(String name) {
+    if (name != null) {
+      for (Equipment b : Equipment.values()) {
+        if (name.equalsIgnoreCase(b.name)) {
+          return b;
+        }
+      }
+    }
+    return null;
+  }
 }
