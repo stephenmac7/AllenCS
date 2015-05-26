@@ -8,10 +8,6 @@ public class ProcessAction extends Action {
     this.times = times;
   }
   
-  public ProcessAction(Process p) {
-    ProcessAction(p, 1);
-  }
-  
   public void errorMsg(String msg) {
     System.out.println("[" + p + "] ERROR: " + msg);
   }

@@ -11,4 +11,15 @@ public enum Material {
   public String toString() {
     return name;
   }
+  
+  public static Material fromString(String name) {
+    if (s != null) {
+      for (Material b : Material.values()) {
+        if (name.equalsIgnoreCase(b.name)) {
+          return b;
+        }
+      }
+    }
+    return null;
+  }
 }

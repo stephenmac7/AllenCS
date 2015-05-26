@@ -43,7 +43,7 @@ public class Company {
     List<StockItem> out = new ArrayList<StockItem>();
     out.add(new StockItem(Material.PLANK, 5));
 
-    return new ProcessAction(new Process("Planking", 10, 1, req, in, out));
+    return new ProcessAction(new Process("Planking", 10, 1, req, in, out), 1);
   }
 
   // Goes through one time cycle
@@ -74,12 +74,26 @@ public class Company {
     return cash > 0;
   }
   
+  // Cash get/set/stuff
   public double getCash() {
     return cash;
   }
   
   public void spend(double cash) {
     this.cash -= cash;
+  }
+  
+  // Price get/set/stuff
+  public double getPrice(Material m) {
+    return prices.get(m);
+  }
+  
+  public void setPrice(Material m, double price) {
+    prices.set(m, price);
+  }
+  
+  public oid removePrice(Material m) {
+    prices.remove(m);
   }
 
   // Checks if we have all the equipment in the list
@@ -165,7 +179,14 @@ public class Company {
     cash -= employees * 100;
   }
 
-  // Use employees
+  // set/set/use employees
+  public int getEmployees() {
+    return employees;
+  }
+  
+  public void setEmployees(int employees) {
+    this.employees = employees;
+  }
   public boolean useEmployees(int employees) {
     if (employees > this.employees) {
       return false;
@@ -176,7 +197,7 @@ public class Company {
     }
   }
   
-  // We always need one of these
+  // We always some of these
   public String toString() {
     StringBuilder s = new StringBuilder("Company: ");
     s.append(name);
@@ -201,8 +222,8 @@ public class Company {
   
   public void showActions() {
     System.out.println("Actions:");
-    for (Action a : actions) {
-      System.out.println("- " + a);
+    for (int i = 0; i < actions.size(); i++) {
+      System.out.println(String.format("%2d %s", i, actions.get(i)));
     }
   }
   
